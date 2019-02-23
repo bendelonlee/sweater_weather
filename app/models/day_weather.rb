@@ -1,2 +1,0 @@
-class DayWeather < ApplicationRecord
-end

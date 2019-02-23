@@ -1,6 +1,6 @@
-class CreateDayWeathers < ActiveRecord::Migration[5.1]
+class CreateHourWeathers < ActiveRecord::Migration[5.1]
   def change
-    create_table :day_weathers do |t|
+    create_table :hour_weathers do |t|
       t.string :icon
       t.string :summary
       t.datetime :time
