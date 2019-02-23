@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe CityWriter do
-  describe ".create_if_unfound" do
+  describe ".find_or_create_by_city" do
     before(:each) do
       @latitude  = 123.22
       @longitude = -111.45
@@ -17,14 +17,14 @@ describe CityWriter do
     it "creates" do
       create(:city)
       writer = CityWriter.new
-      writer.create_if_unfound(@city_name)
+      writer.find_or_create_by_city(@city_name)
       expect(City.count).to eq(2)
       expect(City.last.latitude).to eq(@latitude)
       expect(City.last.longitude).to eq(@longitude)
       expect(@service_class).to have_received(:new)
       expect(@service).to have_received(:coordinates)
     end
-    describe "does not create" do
+    describe "finds" do
       before(:each) do
         create(:city, name: @city_name, latitude: @latitude, longitude: @longitude)
       end
@@ -33,11 +33,12 @@ describe CityWriter do
       end
       after(:each) do
         writer = CityWriter.new
-        writer.create_if_unfound(@city_to_find)
+        writer.find_or_create_by_city(@city_to_find)
         expect(City.count).to eq(1)
         expect(@service).to_not have_received(:coordinates)
         expect(@service_class).to_not have_received(:new)
       end
+      #refactor. Given "Paris" when "Paris Texas" and "Paris France" are in the database, it should find the more popular (france). But, given "Paris, Texas", it should find the right one
     end
   end
 end
