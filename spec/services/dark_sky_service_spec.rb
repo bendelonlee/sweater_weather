@@ -3,6 +3,10 @@ require "rails_helper"
 describe DarkSkyService do
   before(:each) do
     @service = DarkSkyService.new(37.8267, -122.4233)
+    VCR.insert_cassette('DarkSkyService')
+  end
+  after(:each) do
+    VCR.eject_cassette('DarkSkyService')
   end
 
   it 'summaries' do

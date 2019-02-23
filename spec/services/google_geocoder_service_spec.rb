@@ -1,6 +1,13 @@
 require "rails_helper"
 
 describe GoogleGeocoderService do
+  before(:each) do
+    VCR.insert_cassette('GoogleGeocoderService')
+  end
+  after(:each) do
+    VCR.eject_cassette('GoogleGeocoderService')
+  end
+
   it ".coordinates" do
     service = GoogleGeocoderService.new('denver')
     response = service.coordinates

@@ -32,6 +32,11 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
+VCR.configure do |config|
+  config.cassette_library_dir = "fixtures/vcr_cassettes"
+  config.hook_into :webmock
+end
+
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
