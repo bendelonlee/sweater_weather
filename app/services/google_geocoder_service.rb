@@ -7,6 +7,18 @@ class GoogleGeocoderService
     response[:results][0][:geometry][:location]
   end
 
+  def city
+    response[:results][0][:address_components][0][:short_name]
+  end
+
+  def state
+    response[:results][0][:address_components][2][:short_name]
+  end
+
+  def country
+    response[:results][0][:address_components][3][:long_name]
+  end
+
   private
 
   def response
