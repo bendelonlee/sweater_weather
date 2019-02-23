@@ -3,9 +3,9 @@ require "rails_helper"
 describe Forecast::Day do
   describe 'class methods' do
     include ForecastSpecHelpers
-    it '.from_hash' do
+    it 'exists' do
       dh= day_hash
-      day = Forecast::Day.from_hash(dh)
+      day = Forecast::Day.new(dh)
       expect(day.icon).to               eq(dh[:icon])
       expect(day.summary).to            eq(dh[:summary])
       expect(day.time).to               eq(DateTime.strptime(dh[:time], '%s'))
