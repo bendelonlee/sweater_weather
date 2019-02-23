@@ -20,7 +20,7 @@ module ForecastSpecHelpers
       allow(hour).to receive_messages(
         icon: "sun",
         summary: "The perfect hour",
-        time: (starting_time.beginning_of_hour + i.hours).strp_time('%s'),
+        time: (starting_time.beginning_of_hour + i.hours).strftime('%s'),
         temperature: (100 + i),
         apparentTemperature: (200 + i),
         humidity: i,
@@ -34,10 +34,10 @@ module ForecastSpecHelpers
   def stub_days(starting_time)
     (0..7).each do |i|
       day = double("day-#{i}")
-      day.stub(
+      allow(day).to receive_messages(
         icon: "sun-icon",
         summary: "The perfect day",
-        time: (starting_time + i.days).strp_time('%s'),
+        time: (starting_time + i.days).strftime('%s'),
         temperatureHigh: (100 + i),
         temperatureLow: (0 + i),
         precipProbability: (i / 10.0),

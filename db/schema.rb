@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190223165736) do
+ActiveRecord::Schema.define(version: 20190223190313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,43 @@ ActiveRecord::Schema.define(version: 20190223165736) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "day_weathers", force: :cascade do |t|
+    t.string "icon"
+    t.string "summary"
+    t.string "time"
+    t.decimal "high"
+    t.decimal "low"
+    t.decimal "precip_probability"
+    t.string "precipType"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "forecast_days", force: :cascade do |t|
+    t.string "icon"
+    t.string "summary"
+    t.string "time"
+    t.decimal "high"
+    t.decimal "low"
+    t.decimal "precip_probability"
+    t.string "precipT"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "forecast_hours", force: :cascade do |t|
+    t.string "icon"
+    t.string "summary"
+    t.datetime "time"
+    t.decimal "tempurature"
+    t.decimal "feels_like"
+    t.decimal "humidity"
+    t.decimal "visibility"
+    t.integer "uv_index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "forecasts", force: :cascade do |t|
     t.string "day_summary"
     t.string "week_summary"
@@ -31,6 +68,19 @@ ActiveRecord::Schema.define(version: 20190223165736) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_forecasts_on_city_id"
+  end
+
+  create_table "hour_weathers", force: :cascade do |t|
+    t.string "icon"
+    t.string "summary"
+    t.datetime "time"
+    t.decimal "tempurature"
+    t.decimal "feels_like"
+    t.decimal "humidity"
+    t.decimal "visibility"
+    t.integer "uv_index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "forecasts", "cities"
