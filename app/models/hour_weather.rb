@@ -1,2 +1,0 @@
-class HourWeather < ApplicationRecord
-end
