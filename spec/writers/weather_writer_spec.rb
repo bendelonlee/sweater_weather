@@ -1,14 +1,12 @@
 require "rails_helper"
 
-describe CityWriter do
+describe WeatherWriter do
   describe ".find_or_create_by_city" do
     before(:each) do
-      @latitude  = 123.22
-      @longitude = -111.45
       @city_name = "Denvertropolis"
-      @service_class = spy("GoogleGeocoderService")
-      @service       = spy("geo_service")
-      stub_const("GoogleGeocoderService", @service_class )
+      @service_class = spy("WeatherService")
+      @service       = spy("weather_service")
+      stub_const("DarkSkyService", @service_class )
       allow(@service_class).to receive(:new).and_return( @service )
       @service.stub(
         coordinates:
@@ -17,9 +15,10 @@ describe CityWriter do
         state: "Colorado",
         country: "United States"
       )
+      end
     end
     it "creates" do
-      create(:city)
+      create(:weather)
       writer = CityWriter.new
       writer.find_or_create_by_city(@city_name)
       expect(City.count).to eq(2)
