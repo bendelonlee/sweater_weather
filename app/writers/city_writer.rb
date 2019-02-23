@@ -11,10 +11,10 @@ class CityWriter
   end
 
   def service
-    @_service ||= GoogleGeocoderService.new
+    @_service ||= GoogleGeocoderService.new(@city_name)
   end
 
   def coordinates
-    @_coordinates ||= service.coordinates(@city_name)
+    @_coordinates ||= service.coordinates
   end
 end

@@ -1,26 +1,27 @@
 class GoogleGeocoderService
-  def coordinates(address)
-    get_json('/maps/api/geocode/json?') do |request|
-      request.params[:address] = address
-    end
+  def initialize(address)
+    @address = address
+  end
+
+  def coordinates
+    response[:results][0][:geometry][:location]
   end
 
   private
 
-  def get_json(path, &block)
-    JSON.parse( get_response(path, block).body, symbolize_names: true )
+  def response
+    @_response ||= JSON.parse( get_json.body, symbolize_names: true )
   end
 
-  def get_response(path, block)
-    connection.get(path) do |f|
-      block.call(f)
-    end
+  def get_json
+    connection.get('/maps/api/geocode/json?')
   end
 
   def connection
     Faraday.new(url: 'https://maps.googleapis.com') do |f|
       f.adapter Faraday.default_adapter
       f.params[:key] = ENV['GOOGLE_GEOCODER_API_KEY']
+      f.params[:address] = @address
     end
   end
 end

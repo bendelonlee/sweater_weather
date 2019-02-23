@@ -2,11 +2,10 @@ require "rails_helper"
 
 describe GoogleGeocoderService do
   it ".coordinates" do
-    service = GoogleGeocoderService.new
-
-    expect(service.coordinates('denver')).to be_a(Hash)
-    expect(service.coordinates('denver')[:results]).to be_a(Array)
-    expect(service.coordinates('denver')[:results]).to have_key(:lat)
-    expect(service.coordinates('denver')[:results]).to have_key(:lng)
+    service = GoogleGeocoderService.new('denver')
+    response = service.coordinates
+    expect(response).to be_a(Hash)
+    expect(response).to have_key(:lat)
+    expect(response).to have_key(:lng)
   end
 end
