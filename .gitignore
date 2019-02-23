@@ -15,6 +15,7 @@
 
 .byebug_history
 fixtures/vcr_cassettes
+coverage
 
 # Ignore application configuration
 /config/application.yml
