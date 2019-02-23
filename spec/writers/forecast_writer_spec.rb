@@ -5,17 +5,12 @@ describe ForecastWriter do
   describe ".find_or_fetch" do
     before(:each) do
       stub_service
-      stub_days
-      stub_hours
-      
     end
     describe "it find" do
       describe "the hour's weather" do
         scenario 'when the forecast was retrieved this hour' do
-          require 'pry'; binding.pry
-
-          writer = ForecastWriter.new
           expect do
+            writer = ForecastWriter.new
             writer.find_or_fetch(city: @city)
           end.to change{Forecast.count}.from(0).to(1)
         end
