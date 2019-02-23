@@ -19,15 +19,17 @@ describe CityWriter do
       expect(City.last.longitude).to eq(@longitude)
     end
     describe "does not create" do
-      create(:city, name: @city_name, latitude: @latitude, longitude: @longitude)
-    end
-    scenario "when the name is already taken" do
-      @city_to_find = @city_name
-    end
-    after(:each) do
-      writer = CityWriter.new
-      writer.create_if_unfound(@city_to_find)
-      expect(City.count).to eq(1)
+      before(:each) do
+        create(:city, name: @city_name, latitude: @latitude, longitude: @longitude)
+      end
+      scenario "when the name is already taken" do
+        @city_to_find = @city_name
+      end
+      after(:each) do
+        writer = CityWriter.new
+        writer.create_if_unfound(@city_to_find)
+        expect(City.count).to eq(1)
+      end
     end
   end
 end
