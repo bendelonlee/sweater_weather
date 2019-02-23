@@ -8,7 +8,7 @@ describe ForecastWriter do
     @service       = spy("weather_service")
     stub_const("DarkSkyService", @service_class )
     allow(@service_class).to receive(:new).and_return( @service )
-    @service.stub(
+    allow(@service).to receive_messages(
       day_summary:  @day_summary  = "A beautiful day",
       week_summary: @week_summary = "A beautiful week",
     )
@@ -17,7 +17,7 @@ describe ForecastWriter do
   def stub_hours(starting_time)
     (0..48).each do |i|
       hour = double("hour-#{i}")
-      hour.stub(
+      allow(hour).to receive_messages(
         icon: "sun",
         summary: "The perfect hour",
         time: (starting_time.beginning_of_hour + i.hours).strp_time('%s'),

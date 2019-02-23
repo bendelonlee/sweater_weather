@@ -10,7 +10,7 @@ describe CityWriter do
       @service       = spy("geo_service")
       stub_const("GoogleGeocoderService", @service_class )
       allow(@service_class).to receive(:new).and_return( @service )
-      @service.stub(
+      allow(@service).to receive_messages(
         coordinates:
           { lat: @latitude, lng: @longitude },
         city: "Denvertropolis",
