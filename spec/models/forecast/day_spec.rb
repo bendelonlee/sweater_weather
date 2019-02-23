@@ -1,5 +1,5 @@
 require "rails_helper"
-
+#Refactor: To cut down on write time, I could switch to storing the weather data as a jsonb column on the forecast table and switch to making the day and hour POROs
 describe Forecast::Day do
   describe 'class methods' do
     include ForecastSpecHelpers
