@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe City do
+RSpec.describe City, type: :model do
   describe 'validations' do
     it { should validate_presence_of :name }
     it { should validate_presence_of :latitude }
@@ -8,6 +8,6 @@ describe City do
     it { should validate_presence_of :image }
   end
   describe 'relationships' do
-    it { should have_one :weather }
+    it { should have_one :forecast }
   end
 end

@@ -1,2 +1,7 @@
 class City < ApplicationRecord
+  validates_presence_of :name
+  validates_presence_of :latitude
+  validates_presence_of :longitude
+  validates_presence_of :image
+  has_one :forecast
 end
