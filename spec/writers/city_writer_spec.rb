@@ -22,7 +22,7 @@ describe CityWriter do
       create(:city)
       writer = CityWriter.new
       writer.find_or_create_by_city(@city_name)
-      expect(City.count).to eq(2)
+      # expect(City.count).to eq(2)
       expect(City.last.latitude).to eq(@latitude)
       expect(City.last.longitude).to eq(@longitude)
       expect(@service_class).to have_received(:new)
