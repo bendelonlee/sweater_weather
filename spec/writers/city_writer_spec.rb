@@ -6,7 +6,11 @@ describe CityWriter do
       @latitude = 123.22
       @longitude = -111.45
       @city_name = "Denvertropolis"
-      expect(GoogleGeocoderService).to receive(:coordinates).with(@city_name) do
+      service_class = double("geo_service_class")
+      service       = double("geo_service")
+      stub_const("GoogleGeocoderService", service_class )
+      expect(service_class).to receive(:new).and_return( service )
+      expect(service).to receive(:coordinates).with(@city_name) do
         { lat: @latitude, lng: @longitude }
       end
     end
