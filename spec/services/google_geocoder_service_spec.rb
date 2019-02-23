@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe GoogleGeocoderService do
-  it ".coordinate" do
+  it ".coordinates" do
     service = GoogleGeocoderService.new
 
     expect(service.coordinates).to be_a(Hash)
