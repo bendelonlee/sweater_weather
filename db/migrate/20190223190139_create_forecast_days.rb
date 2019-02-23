@@ -3,7 +3,7 @@ class CreateForecastDays < ActiveRecord::Migration[5.1]
     create_table :forecast_days do |t|
       t.string :icon
       t.string :summary
-      t.string :time
+      t.datetime :time
       t.decimal :high
       t.decimal :low
       t.decimal :precip_probability

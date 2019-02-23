@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20190223190313) do
   create_table "forecast_days", force: :cascade do |t|
     t.string "icon"
     t.string "summary"
-    t.string "time"
+    t.datetime "time"
     t.decimal "high"
     t.decimal "low"
     t.decimal "precip_probability"
