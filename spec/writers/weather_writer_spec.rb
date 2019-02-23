@@ -1,48 +1,67 @@
 require "rails_helper"
 
 describe WeatherWriter do
-  describe ".find_or_create_by_city" do
-    before(:each) do
-      @city_name = "Denvertropolis"
-      @service_class = spy("WeatherService")
-      @service       = spy("weather_service")
-      stub_const("DarkSkyService", @service_class )
-      allow(@service_class).to receive(:new).and_return( @service )
-      @service.stub(
-        coordinates:
-          { lat: @latitude, lng: @longitude },
-        city: "Denvertropolis",
-        state: "Colorado",
-        country: "United States"
+  def stub_service
+    @city_name = "Denvertropolis"
+    @city = double(@city_name)
+    @service_class = spy("WeatherService")
+    @service       = spy("weather_service")
+    stub_const("DarkSkyService", @service_class )
+    allow(@service_class).to receive(:new).and_return( @service )
+    @service.stub(
+      day_summary:  @day_summary  = "A beautiful day",
+      week_summary: @week_summary = "A beautiful week",
+    )
+  end
+
+  def stub_hours(starting_time)
+    (0..48).each do |i|
+      hour = double("hour-#{i}")
+      hour.stub(
+        icon: "sun",
+        summary: "The perfect hour",
+        time: (starting_time.beginning_of_hour + i.hours).strp_time('%s'),
+        temperature: (100 + i),
+        apparentTemperature: (200 + i),
+        humidity: i,
+        visibility: 100 - i,
+        uvIndex: i / 10
       )
-      end
+      allow(@service).to receive(:weather_at_hour).with(0).and_return(hour)
     end
-    it "creates" do
-      create(:weather)
-      writer = CityWriter.new
-      writer.find_or_create_by_city(@city_name)
-      expect(City.count).to eq(2)
-      expect(City.last.latitude).to eq(@latitude)
-      expect(City.last.longitude).to eq(@longitude)
-      expect(@service_class).to have_received(:new)
-      expect(@service).to have_received(:coordinates)
+  end
+
+  def stub_days(starting_time)
+    (0..7).each do |i|
+      day = double("day-#{i}")
+      day.stub(
+        icon: "sun-icon",
+        summary: "The perfect day",
+        time: (starting_time + i.days).strp_time('%s'),
+        temperatureHigh: (100 + i),
+        temperatureLow: (0 + i),
+        precipProbability: (i / 10.0),
+        precipType: 'rain'
+      )
+      allow(@service).to receive(:weather_at_day).with(0).and_return(day)
     end
-    describe "finds" do
-      before(:each) do
-        create(:city, name: @city_name, latitude: @latitude, longitude: @longitude)
+  end
+
+  describe ".find_or_fetch" do
+    before(:each) do
+      stub_service
+    end
+    describe "it find" do
+      it "the hour's weather" do
+        scenario 'when the forecast was retrieved this hour' do
+          expect do
+            WeatherWriter.find_or_create(city: @city)
+          end.to change{Weather.count}.from(0).to(1)
+        end
+        scenario 'when the forecast was retrieved earlier' do
+
+        end
       end
-      scenario "when the name is already taken" do
-        @city_to_find = @city_name
-      end
-      after(:each) do
-        writer = CityWriter.new
-        writer.find_or_create_by_city(@city_to_find)
-        expect(City.count).to eq(1)
-        expect(@service).to_not have_received(:coordinates)
-        expect(@service_class).to_not have_received(:new)
-      end
-      #refactor. Given "Paris" when "Paris Texas" and "Paris France" are in the database, it should find the more popular (france). But, given "Paris, Texas", it should find the right one
-      #Another refactor: It should store which searches led to which cities. EG, 123 maple street is in the Metropolis, the next time that address is looked for it should default Metropolis
     end
   end
 end
