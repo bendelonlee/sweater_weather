@@ -14,36 +14,49 @@ module ForecastSpecHelpers
     )
   end
 
-  def stub_hours(starting_time)
+  def stub_hours(starting_time = Time.now)
     (0..48).each do |i|
       hour = double("hour-#{i}")
       allow(hour).to receive_messages(
-        icon: "sun",
-        summary: "The perfect hour",
-        time: (starting_time.beginning_of_hour + i.hours).strftime('%s'),
-        temperature: (100 + i),
-        apparentTemperature: (200 + i),
-        humidity: i,
-        visibility: 100 - i,
-        uvIndex: i / 10
+        hour_hash(starting_time, i)
       )
       allow(@service).to receive(:weather_at_hour).with(0).and_return(hour)
     end
   end
 
-  def stub_days(starting_time)
+  def hour_hash(starting_time = Time.now, i = 0)
+    {
+      icon: "sun",
+      summary: "The perfect hour",
+      time: (starting_time.beginning_of_hour + i.hours).strftime('%s'),
+      temperature: (100 + i),
+      apparentTemperature: (200 + i),
+      humidity: i,
+      visibility: 100 - i,
+      uvIndex: i / 10
+    }
+  end
+
+  def stub_days(starting_time = Time.now)
     (0..7).each do |i|
       day = double("day-#{i}")
       allow(day).to receive_messages(
-        icon: "sun-icon",
-        summary: "The perfect day",
-        time: (starting_time + i.days).strftime('%s'),
-        temperatureHigh: (100 + i),
-        temperatureLow: (0 + i),
-        precipProbability: (i / 10.0),
-        precipType: 'rain'
+        day_hash(starting_time, i)
       )
       allow(@service).to receive(:weather_at_day).with(0).and_return(day)
     end
+  end
+
+  def day_hash(starting_time = Time.now, i = 0)
+    {
+      icon: "sun-icon",
+      summary: "The perfect day",
+      time: (starting_time + i.days).strftime('%s'),
+      temperatureHigh: (100 + i),
+      temperatureLow: (0 + i),
+      precipProbability: (i / 10.0),
+      precipType: 'rain'
+    }
+
   end
 end

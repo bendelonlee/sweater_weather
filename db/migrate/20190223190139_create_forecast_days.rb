@@ -7,7 +7,7 @@ class CreateForecastDays < ActiveRecord::Migration[5.1]
       t.decimal :high
       t.decimal :low
       t.decimal :precip_probability
-      t.string :precipT
+      t.string :precip_type
 
       t.timestamps
     end

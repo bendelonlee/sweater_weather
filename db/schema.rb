@@ -24,18 +24,6 @@ ActiveRecord::Schema.define(version: 20190223190313) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "day_weathers", force: :cascade do |t|
-    t.string "icon"
-    t.string "summary"
-    t.string "time"
-    t.decimal "high"
-    t.decimal "low"
-    t.decimal "precip_probability"
-    t.string "precipType"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "forecast_days", force: :cascade do |t|
     t.string "icon"
     t.string "summary"
@@ -43,7 +31,7 @@ ActiveRecord::Schema.define(version: 20190223190313) do
     t.decimal "high"
     t.decimal "low"
     t.decimal "precip_probability"
-    t.string "precipT"
+    t.string "precip_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,19 +56,6 @@ ActiveRecord::Schema.define(version: 20190223190313) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_forecasts_on_city_id"
-  end
-
-  create_table "hour_weathers", force: :cascade do |t|
-    t.string "icon"
-    t.string "summary"
-    t.datetime "time"
-    t.decimal "tempurature"
-    t.decimal "feels_like"
-    t.decimal "humidity"
-    t.decimal "visibility"
-    t.integer "uv_index"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "forecasts", "cities"
