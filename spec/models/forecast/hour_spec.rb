@@ -8,7 +8,7 @@ describe Forecast::Hour do
       hour = Forecast::Hour.from_hash(hh)
       expect(hour.icon).to        eq(hh[:icon])
       expect(hour.summary).to     eq(hh[:summary])
-      expect(hour.time).to        eq(Time.strptime(hh[:time], '%s'))
+      expect(hour.time).to        eq(DateTime.strptime(hh[:time], '%s'))
       expect(hour.tempurature).to eq(hh[:temperature])
       expect(hour.feels_like).to  eq(hh[:apparentTemperature])
       expect(hour.humidity).to    eq(hh[:humidity])

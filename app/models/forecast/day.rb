@@ -3,7 +3,7 @@ class Forecast::Day < ApplicationRecord
     create(
       icon:               hash[:icon],
       summary:            hash[:summary],
-      time:               Time.strptime(hash[:time], '%s'),
+      time:               DateTime.strptime(hash[:time], '%s'),
       high:               hash[:temperatureHigh],
       low:                hash[:temperatureLow],
       precip_probability: hash[:precipProbability],

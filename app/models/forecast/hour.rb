@@ -3,7 +3,7 @@ class Forecast::Hour < ApplicationRecord
     create(
       icon:          hash[:icon],
       summary:       hash[:summary],
-      time:          Time.strptime(hash[:time], '%s'),
+      time:          DateTime.strptime(hash[:time], '%s'),
       tempurature:   hash[:temperature],
       feels_like:    hash[:apparentTemperature],
       humidity:      hash[:humidity],
