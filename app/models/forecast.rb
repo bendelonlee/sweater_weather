@@ -5,21 +5,21 @@ class Forecast < ApplicationRecord
       day_summary:  service.day_summary,
       week_summary: service.week_summary
     )
-    forecast.add_children
+    forecast.add_children(service)
   end
 
-  def add_children
-    add_days
-    add_hours
+  def add_children(service)
+    add_days(service)
+    add_hours(service)
   end
 
-  def add_days
+  def add_days(service)
     @days = 8.times do |i|
       DayWeather.from_hash(service.day_at(i))
     end
   end
 
-  def add_hours
+  def add_hours(service)
     @hours = 48.times do |i|
       HourWeather.from_hash(service.day_at(i))
     end

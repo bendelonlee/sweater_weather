@@ -8,8 +8,8 @@ RSpec.describe Forecast, type: :model do
   describe 'class_methods' do
     it '.from_service' do
       stub_service
-      stub_days
-      stub_hours
+      stub_days(Time.now)
+      stub_hours(Time.now)
       Forecast.from_service(@service)
       expect(Forecast.count).to eq(1)
       expect(Forecast.days.count).to eq(8)
