@@ -26,7 +26,7 @@ class Forecast < ApplicationRecord
   end
 
   def add_weather_data(service)
-    self.days_data = add_days(service).as_json
+    add_days(service)
     add_hours(service)
   end
 
