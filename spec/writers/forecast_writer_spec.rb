@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe WeatherWriter do
+describe ForecastWriter do
   def stub_service
     @city_name = "Denvertropolis"
     @city = double(@city_name)
@@ -52,11 +52,11 @@ describe WeatherWriter do
       stub_service
     end
     describe "it find" do
-      it "the hour's weather" do
+      describe "the hour's weather" do
         scenario 'when the forecast was retrieved this hour' do
           expect do
-            WeatherWriter.find_or_create(city: @city)
-          end.to change{Weather.count}.from(0).to(1)
+            ForecastWriter.find_or_fetch(city: @city)
+          end.to change{Forecast.count}.from(0).to(1)
         end
         scenario 'when the forecast was retrieved earlier' do
 

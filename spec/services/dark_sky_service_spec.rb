@@ -10,7 +10,7 @@ describe DarkSkyService do
     expect(@service.week_summary).to be_a(String)
   end
 
-  it '.wether_at_hour(integer)' do
+  it '.weather_at_hour(integer)' do
     response = @service.weather_at_hour(48)
     expect(response).to be_a(Hash)
     expect(response).to have_key(:icon)
