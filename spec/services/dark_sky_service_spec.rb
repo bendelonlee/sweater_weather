@@ -11,7 +11,7 @@ describe DarkSkyService do
   end
 
   it '.wether_at_hour(integer)' do
-    response = @service.weather_at_hour(23)
+    response = @service.weather_at_hour(48)
     expect(response).to be_a(Hash)
     expect(response).to have_key(:icon)
     expect(response).to have_key(:summary)

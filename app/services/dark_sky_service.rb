@@ -12,6 +12,14 @@ class DarkSkyService
     response[:daily][:summary]
   end
 
+  def weather_at_day(day)
+    response[:daily][:data][day]
+  end
+
+  def weather_at_hour(hour)
+    response[:hourly][:data][hour]
+  end
+
   private
 
   def response
