@@ -11,6 +11,8 @@ module ForecastSpecHelpers
     allow(@service).to receive_messages(
       day_summary:  @day_summary  = "A beautiful day",
       week_summary: @week_summary = "A beautiful week",
+      day_at: day_hash,
+      hours_at: hour_hash
     )
   end
 

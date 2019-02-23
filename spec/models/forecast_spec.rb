@@ -10,10 +10,12 @@ RSpec.describe Forecast, type: :model do
       stub_service
       stub_days(Time.now)
       stub_hours(Time.now)
-      Forecast.from_service(@service)
+      city = create(:city)
+      forecast = Forecast.from_service(@service, city)
       expect(Forecast.count).to eq(1)
-      expect(Forecast.days.count).to eq(8)
-      expect(Forecast.hours.count).to eq(48)
+      expect(forecast.days.count).to eq(8)
+      expect(forecast.days.first).to be_a(Forecast::Day)
+      # expect(Forecast.hours.count).to eq(48)
     end
   end
 end

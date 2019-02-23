@@ -1,13 +1,21 @@
-class Forecast::Day < ApplicationRecord
-  def self.from_hash(hash)
-    create(
-      icon:               hash[:icon],
-      summary:            hash[:summary],
-      time:               DateTime.strptime(hash[:time], '%s'),
-      high:               hash[:temperatureHigh],
-      low:                hash[:temperatureLow],
-      precip_probability: hash[:precipProbability],
-      precip_type:        hash[:precipType]
-    )
+class Forecast::Day
+  attr_reader :time,
+              :high, :low,
+              :icon, :summary,
+              :precip_probability, :precip_type
+
+  def initialize(args)
+      @icon               = args[:icon]
+      @summary            = args[:summary]
+      @time               = format_time(args[:time]) rescue binding.pry
+      @high               = args[:temperatureHigh]
+      @low                = args[:temperatureLow]
+      @precip_probability = args[:precipProbability]
+      @precip_type        = args[:precipType]
   end
+
+  def format_time(string)
+    DateTime.strptime(string, '%s') if string[0][/\d/]
+  end
+
 end
