@@ -29,9 +29,12 @@ describe 'customer relationship requests' do
     hours = result[:hours]
     days = result[:days]
 
+    expect(city).to have_key(:id)
     expect(city).to have_key(:city_name)
     expect(city).to have_key(:state)
     expect(city).to have_key(:country)
+    expect(city.keys.count).to eq(4)
+
 
     expect(current_hour).to have_key :icon
     expect(current_hour).to have_key :summary

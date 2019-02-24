@@ -3,6 +3,7 @@ class ForecastSerializer < ActiveModel::Serializer
              :day_summary, :week_summary,
              :current_hour, :current_day,
              :hours, :days
+  belongs_to :city
 
   def current_day
     object.days[object.today_index]
@@ -23,7 +24,4 @@ class ForecastSerializer < ActiveModel::Serializer
       Forecast::HourSerializer.new(hour, root: false)
     end
   end
-  # has_one  :location_info
-  # has_many :days
-  # has_many :hours
 end
