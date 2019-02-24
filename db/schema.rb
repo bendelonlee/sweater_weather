@@ -10,10 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190224145257) do
+ActiveRecord::Schema.define(version: 20190224163651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "background_images", force: :cascade do |t|
+    t.string "source"
+    t.bigint "city_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_background_images_on_city_id"
+  end
+
+  create_table "background_keywords", force: :cascade do |t|
+    t.string "word"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "background_taggings", force: :cascade do |t|
+    t.bigint "image_id"
+    t.bigint "keyword_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["image_id"], name: "index_background_taggings_on_image_id"
+    t.index ["keyword_id"], name: "index_background_taggings_on_keyword_id"
+  end
 
   create_table "cities", force: :cascade do |t|
     t.string "name"
@@ -62,5 +85,8 @@ ActiveRecord::Schema.define(version: 20190224145257) do
     t.index ["city_id"], name: "index_forecasts_on_city_id"
   end
 
+  add_foreign_key "background_images", "cities"
+  add_foreign_key "background_taggings", "background_images", column: "image_id"
+  add_foreign_key "background_taggings", "background_keywords", column: "keyword_id"
   add_foreign_key "forecasts", "cities"
 end
