@@ -9,6 +9,7 @@ describe 'background endpoint' do
     expect(response).to be_successful
     result = JSON.parse(response.body, symbolize_names: true)
     expect(result).to have_key(:source)
+    expect(result.keys.count).to eq(1)
   end
   # xit 'returns a background image for a specific city' do
   #   city = create(:city)
