@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :city do
     name { "Metropolis" }
-    latitude { 100.10 }
-    longitude { -100.01 }
+    latitude { 32.7157 }
+    sequence(:longitude) { |n| 117.1611 - n * 2 }
     image { "https://image.com/image" }
   end
 end

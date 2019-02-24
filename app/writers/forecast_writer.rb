@@ -8,10 +8,16 @@ class ForecastWriter
     end
   end
 
+  def refresh_all
+    City.all.each do |city|
+      Forecast.from_service( service(city), city )
+    end
+  end
+
   private
 
-  def service
-    DarkSkyService.new(@city)
+  def service(city = @city)
+    DarkSkyService.new(city)
   end
 
   def found_forecast
