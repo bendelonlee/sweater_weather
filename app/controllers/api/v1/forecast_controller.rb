@@ -1,6 +1,6 @@
 class Api::V1::ForecastController < ApplicationController
   def show
-    render json: ForecastSerializer.new(forecast)
+    render json: forecast, each_serializer: Forecast::HourSerializer
   end
 
   private

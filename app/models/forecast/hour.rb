@@ -19,4 +19,8 @@ class Forecast::Hour
   def format_time(data)
     DateTime.strptime(data.to_s, '%s') if data.is_a?(Integer)
   end
+
+  def read_attribute_for_serialization(attr)
+    send(attr)
+  end
 end

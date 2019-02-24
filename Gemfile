@@ -27,7 +27,8 @@ gem 'puma', '~> 3.7'
 gem 'figaro'
 gem 'faraday'
 gem 'factory_bot_rails'
-gem 'fast_jsonapi'
+gem 'active_model_serializers'
+
 
 
 group :development, :test do
