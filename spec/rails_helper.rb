@@ -36,6 +36,9 @@ end
 VCR.configure do |config|
   config.cassette_library_dir = "fixtures/vcr_cassettes"
   config.hook_into :webmock
+  config.filter_sensitive_data('<geo_key>') { ENV['GOOGLE_GEOCODER_API_KEY']}
+  config.filter_sensitive_data('<weather_key>') { ENV['DARK_SKY_API_KEY']}
+  config.filter_sensitive_data('<flickr_key>') { ENV['FLICKR_API_KEY']}
   # config.ignore_request do
   #   true
   # end
