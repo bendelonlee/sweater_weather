@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe CityWriter do
-  describe ".find_or_create_by_city" do
+  describe ".find_or_fetch" do
     before(:each) do
       @latitude  = 123.22
       @longitude = -111.45
@@ -21,7 +21,7 @@ describe CityWriter do
     it "creates" do
       create(:city)
       writer = CityWriter.new
-      writer.find_or_create_by_city(@city_name)
+      writer.find_or_fetch(@city_name)
       # expect(City.count).to eq(2)
       expect(City.last.latitude).to eq(@latitude)
       expect(City.last.longitude).to eq(@longitude)
@@ -37,7 +37,7 @@ describe CityWriter do
       end
       after(:each) do
         writer = CityWriter.new
-        writer.find_or_create_by_city(@city_to_find)
+        writer.find_or_fetch(@city_to_find)
         expect(City.count).to eq(1)
         expect(@service).to_not have_received(:coordinates)
         expect(@service_class).to_not have_received(:new)

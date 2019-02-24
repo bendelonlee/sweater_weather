@@ -1,5 +1,5 @@
 class CityWriter
-  def find_or_create_by_city(city_name)
+  def find_or_fetch(city_name)
     @city_name = city_name
     return if City.find_by(name: @city_name)
     City.create(
