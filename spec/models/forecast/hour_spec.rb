@@ -5,11 +5,11 @@ describe Forecast::Hour do
     include ForecastSpecHelpers
     it '.from_hash' do
       hh= hour_hash
-      hour = Forecast::Hour.from_hash(hh)
+      hour = Forecast::Hour.new(hh)
       expect(hour.icon).to        eq(hh[:icon])
       expect(hour.summary).to     eq(hh[:summary])
-      expect(hour.time).to        eq(DateTime.strptime(hh[:time], '%s'))
-      expect(hour.tempurature).to eq(hh[:temperature])
+      expect(hour.time).to        eq(DateTime.strptime(hh[:time].to_s, '%s'))
+      expect(hour.temperature).to eq(hh[:temperature])
       expect(hour.feels_like).to  eq(hh[:apparentTemperature])
       expect(hour.humidity).to    eq(hh[:humidity])
       expect(hour.visibility).to  eq(hh[:visibility])

@@ -1,6 +1,6 @@
 class ForecastWriter
-  def find_or_fetch(args)
-    @city = args[:city]
+  def find_or_fetch(city)
+    @city = city
     if found_forecast
       found_forecast
     else

@@ -11,18 +11,16 @@ module ForecastSpecHelpers
     allow(@service).to receive_messages(
       day_summary:  @day_summary  = "A beautiful day",
       week_summary: @week_summary = "A beautiful week",
-      day_at: day_hash,
+      weather_at_day: day_hash,
       hours_at: hour_hash
     )
   end
 
   def stub_hours(starting_time = Time.now)
     (0..48).each do |i|
-      hour = double("hour-#{i}")
-      allow(hour).to receive_messages(
-        hour_hash(starting_time, i)
-      )
-      allow(@service).to receive(:weather_at_hour).with(0).and_return(hour)
+      allow(@service).to receive(:weather_at_hour).with(i) do
+        hour_hash(starting_time = Time.now, i = 0)
+      end
     end
   end
 
@@ -30,7 +28,7 @@ module ForecastSpecHelpers
     {
       icon: "sun",
       summary: "The perfect hour",
-      time: (starting_time.beginning_of_hour + i.hours).strftime('%s'),
+      time: (starting_time.beginning_of_hour + i.hours).strftime('%s').to_i,
       temperature: (100 + i),
       apparentTemperature: (200 + i),
       humidity: i,
@@ -41,11 +39,9 @@ module ForecastSpecHelpers
 
   def stub_days(starting_time = Time.now)
     (0..7).each do |i|
-      day = double("day-#{i}")
-      allow(day).to receive_messages(
+      allow(@service).to receive(:weather_at_day).with(i) do
         day_hash(starting_time, i)
-      )
-      allow(@service).to receive(:weather_at_day).with(0).and_return(day)
+      end
     end
   end
 
@@ -53,7 +49,7 @@ module ForecastSpecHelpers
     {
       icon: "sun-icon",
       summary: "The perfect day",
-      time: (starting_time + i.days).strftime('%s'),
+      time: (starting_time + i.days).strftime('%s').to_i,
       temperatureHigh: (100 + i),
       temperatureLow: (0 + i),
       precipProbability: (i / 10.0),

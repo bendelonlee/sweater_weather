@@ -1,6 +1,5 @@
 class CityWriter
   def find_or_fetch(city_name)
-    require 'pry'; binding.pry
     @city_name = city_name
     return found_city if found_city
     City.create(

@@ -36,6 +36,9 @@ end
 VCR.configure do |config|
   config.cassette_library_dir = "fixtures/vcr_cassettes"
   config.hook_into :webmock
+  # config.ignore_request do
+  #   true
+  # end
 end
 
 Shoulda::Matchers.configure do |config|

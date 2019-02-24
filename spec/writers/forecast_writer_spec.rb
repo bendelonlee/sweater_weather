@@ -11,15 +11,15 @@ describe ForecastWriter do
     it "fetches" do
       writer = ForecastWriter.new
       expect do
-        writer.find_or_fetch(city: create(:city))
+        writer.find_or_fetch(create(:city))
       end.to change{Forecast.count}.from(0).to(1)
     end
     it 'finds' do
       writer = ForecastWriter.new
       city = create(:city)
-      writer.find_or_fetch(city: city)
+      writer.find_or_fetch(city)
       expect do
-        writer.find_or_fetch(city: city)
+        writer.find_or_fetch(city)
       end.to_not change{Forecast.count}
     end
   end

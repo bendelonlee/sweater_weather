@@ -1,7 +1,7 @@
 class DarkSkyService
-  def initialize(latitude, longitude)
-    @latitude = latitude
-    @longitude = longitude
+  def initialize(object)
+    @latitude = object.latitude
+    @longitude = object.longitude
   end
 
   def day_summary

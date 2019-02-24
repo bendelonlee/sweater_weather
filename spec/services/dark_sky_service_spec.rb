@@ -2,7 +2,9 @@ require "rails_helper"
 
 describe DarkSkyService do
   before(:each) do
-    @service = DarkSkyService.new(37.8267, -122.4233)
+    city = double('city')
+    allow(city).to receive_messages({ latitude: 37.8267, longitude: -122.4233 })
+    @service = DarkSkyService.new(city)
     VCR.insert_cassette('DarkSkyService')
   end
   after(:each) do

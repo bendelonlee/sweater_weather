@@ -14,8 +14,8 @@ class Forecast::Day
       @precip_type        = args[:precipType]
   end
 
-  def format_time(string)
-    DateTime.strptime(string, '%s') if string[0][/\d/]
+  def format_time(data)
+    DateTime.strptime(data.to_s, '%s') if data.is_a?(Integer)
   end
 
 end

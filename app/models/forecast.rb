@@ -34,14 +34,14 @@ class Forecast < ApplicationRecord
 
   def add_hours(service)
     @_hours = (0..48).map do |i|
-      Forecast::Hour.new(service.hour_at(i))
+      Forecast::Hour.new(service.weather_at_hour(i))
     end
-    self.hours_data = @_hours.as_json
+    self.hours_data = @_hours.as_json rescue binding.pry
   end
 
   def add_days(service)
     @_days = (0..7).map do |i|
-      Forecast::Day.new(service.day_at(i))
+      Forecast::Day.new(service.weather_at_day(i))
     end
     self.days_data = @_days.as_json
   end

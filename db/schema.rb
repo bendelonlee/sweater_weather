@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20190223203617) do
     t.string "icon"
     t.string "summary"
     t.datetime "time"
-    t.decimal "tempurature"
+    t.decimal "temperature"
     t.decimal "feels_like"
     t.decimal "humidity"
     t.decimal "visibility"

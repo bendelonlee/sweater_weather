@@ -8,7 +8,7 @@ describe Forecast::Day do
       day = Forecast::Day.new(dh)
       expect(day.icon).to               eq(dh[:icon])
       expect(day.summary).to            eq(dh[:summary])
-      expect(day.time).to               eq(DateTime.strptime(dh[:time], '%s'))
+      expect(day.time).to               eq(DateTime.strptime(dh[:time].to_s, '%s'))
       expect(day.high).to               eq(dh[:temperatureHigh])
       expect(day.low).to                eq(dh[:temperatureLow])
       expect(day.precip_probability).to eq(dh[:precipProbability])

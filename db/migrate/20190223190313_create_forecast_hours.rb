@@ -4,7 +4,7 @@ class CreateForecastHours < ActiveRecord::Migration[5.1]
       t.string :icon
       t.string :summary
       t.datetime :time
-      t.decimal :tempurature
+      t.decimal :temperature
       t.decimal :feels_like
       t.decimal :humidity
       t.decimal :visibility
