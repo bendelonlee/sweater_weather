@@ -14,17 +14,24 @@ describe 'customer relationship requests' do
     expect(result).to be_a(Hash)
 
     expect(result).to have_key(:id)
+    expect(result).to have_key(:city)
     expect(result).to have_key(:day_summary)
     expect(result).to have_key(:week_summary)
     expect(result).to have_key(:current_hour)
     expect(result).to have_key(:current_day)
     expect(result).to have_key(:hours)
     expect(result).to have_key(:days)
+    expect(result.keys.count).to eq(8)
 
+    city = result[:city]
     current_hour = result[:current_hour]
     current_day = result[:current_day]
     hours = result[:hours]
     days = result[:days]
+
+    expect(city).to have_key(:city_name)
+    expect(city).to have_key(:state)
+    expect(city).to have_key(:country)
 
     expect(current_hour).to have_key :icon
     expect(current_hour).to have_key :summary
@@ -34,6 +41,7 @@ describe 'customer relationship requests' do
     expect(current_hour).to have_key :humidity
     expect(current_hour).to have_key :visibility
     expect(current_hour).to have_key :uv_index
+    expect(current_hour.keys.count).to eq(8)
 
     expect(current_day).to have_key :icon
     expect(current_day).to have_key :summary
@@ -42,6 +50,7 @@ describe 'customer relationship requests' do
     expect(current_day).to have_key :low
     expect(current_day).to have_key :precip_probability
     expect(current_day).to have_key :precip_type
+    expect(current_day.keys.count).to eq(7)
 
     expect(hours).to be_a(Array)
     expect(hours.count).to be_between(8, 25)
