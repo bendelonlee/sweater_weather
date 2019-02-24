@@ -1,8 +1,8 @@
 class ForecastWriter
   def find_or_fetch(args)
     @city = args[:city]
-    if forecast
-      forecast
+    if found_forecast
+      found_forecast
     else
       Forecast.from_service( service, @city )
     end
@@ -14,7 +14,7 @@ class ForecastWriter
     DarkSkyService.new(@city)
   end
 
-  def forecast
+  def found_forecast
     @city.forecast
   end
 end

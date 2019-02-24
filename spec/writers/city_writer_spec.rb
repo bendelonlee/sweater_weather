@@ -14,7 +14,7 @@ describe CityWriter do
         coordinates:
           { lat: @latitude, lng: @longitude },
         city: "Denvertropolis",
-        state: "Colorado",
+        state: "CO",
         country: "United States"
       )
     end
@@ -37,10 +37,12 @@ describe CityWriter do
       end
       after(:each) do
         writer = CityWriter.new
-        writer.find_or_fetch(@city_to_find)
+        found_city = writer.find_or_fetch(@city_to_find)
         expect(City.count).to eq(1)
         expect(@service).to_not have_received(:coordinates)
         expect(@service_class).to_not have_received(:new)
+        expect(found_city).to be_a(City)
+        expect(found_city.name).to eq(@city_to_find)
       end
       #refactor. Given "Paris" when "Paris Texas" and "Paris France" are in the database, it should find the more popular (france). But, given "Paris, Texas", it should find the right one
       #Another refactor: It should store which searches led to which cities. EG, 123 maple street is in the Metropolis, the next time that address is looked for it should default Metropolis

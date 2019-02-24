@@ -5,10 +5,7 @@ class Api::V1::ForecastController < ApplicationController
 
   private
 
-
-
   def forecast
-    require 'pry'; binding.pry
     forecast_writer.find_or_fetch(city)
   end
 
