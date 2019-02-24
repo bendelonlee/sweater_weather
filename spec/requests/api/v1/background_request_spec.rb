@@ -3,7 +3,7 @@ describe 'background endpoint' do
   it 'returns a background image for your search' do
     # this param will put your string right into the flickr request
     VCR.use_cassette('denver_image') do
-      get '/api/v1/backgrounds?location=Denver,CO'
+      get '/api/v1/background?location=Denver,CO'
     end
 
     expect(response).to be_successful
