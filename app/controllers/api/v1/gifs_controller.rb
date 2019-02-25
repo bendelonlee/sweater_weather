@@ -1,13 +1,14 @@
 class Api::V1::GifsController < ApplicationController
   def show
-    render json: gif_forecast,
-                serializer: GifsSerializer
+    render json: {
+                data: GifsSerializer.new(gif_forecast_days),
+                copyright: Date.today.year
+              }
   end
-
 
   private
 
-  def gif_forecast
+  def gif_forecast_days
     GifWriter.new(forecast).days
   end
 
