@@ -18,7 +18,7 @@ class GifWriter
   end
 
   def find_gif(forecast_child)
-    Gif.find_by(summary: forecast_child.summary, city: @forecast.city)
+    Gif.find_by(icon: forecast_child.icon)
   end
 
   private
