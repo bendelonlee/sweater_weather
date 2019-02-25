@@ -2,7 +2,7 @@ require "rails_helper"
 describe 'gif endpoint' do
   it 'returns a gif related to the weather of a city' do
     # this param will put your string right into the gif request
-    VCR.use_cassette('denver_image') do
+    VCR.use_cassette('gif_request') do
       get '/api/v1/gifs?location=Denver,CO'
     end
 
