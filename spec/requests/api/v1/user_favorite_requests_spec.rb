@@ -11,7 +11,7 @@ describe 'User adds a favorite' do
     post "/api/v1/favorites", params: params
     expect(response).to be_successful
     expect(JSON.parse(response.body)["success"]).to eq("City #{city_1.id} added to your favorites")
-    # expect(user.favorite_cities).to eq(city_1)
+    expect(user.reload.favorite_cities).to eq([city_1])
   end
   describe 'unsuccessfully' do
     scenario 'no key' do

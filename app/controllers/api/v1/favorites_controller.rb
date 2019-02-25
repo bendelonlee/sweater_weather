@@ -1,6 +1,6 @@
 class Api::V1::FavoritesController < ApplicationController
   def create
-    user
+    user.favorite_cities << city
     render json: { success: "City #{city.id} added to your favorites"}
   end
 

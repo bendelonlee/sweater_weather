@@ -14,7 +14,6 @@ class Forecast::Hour
     @humidity      = args[:humidity]
     @visibility    = args[:visibility]
     @uv_index      = args[:uvIndex] || args[:uv_index]
-    # binding.pry if [@icon, @summary, @time, @temperature, @feels_like, @humidity, @visibility, @uv_index].include?(nil)
   end
 
   def format_time(data)

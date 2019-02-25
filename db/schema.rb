@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190225163946) do
+ActiveRecord::Schema.define(version: 20190225203602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 20190225163946) do
     t.datetime "updated_at", null: false
     t.string "state"
     t.string "country"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "city_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_favorites_on_city_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "forecast_days", force: :cascade do |t|
@@ -106,6 +115,8 @@ ActiveRecord::Schema.define(version: 20190225163946) do
   add_foreign_key "background_images", "cities"
   add_foreign_key "background_taggings", "background_images", column: "image_id"
   add_foreign_key "background_taggings", "background_keywords", column: "keyword_id"
+  add_foreign_key "favorites", "cities"
+  add_foreign_key "favorites", "users"
   add_foreign_key "forecasts", "cities"
   add_foreign_key "gifs", "cities"
 end
