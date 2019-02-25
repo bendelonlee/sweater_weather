@@ -17,5 +17,6 @@ describe 'gif endpoint' do
     expect(days.first).to have_key(:time)
     expect(days.first).to have_key(:summary)
     expect(days.first).to have_key(:gif_url)
+    expect(days.first.keys.count).to eq(3)
   end
 end
