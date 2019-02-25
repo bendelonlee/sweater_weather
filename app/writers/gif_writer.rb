@@ -3,7 +3,7 @@ class GifWriter
     if found_gif = find_gif(forecast_child)
       found_gif
     else
-      Gif.new(GiphyService.get_gif(forecast_child))
+      Gif.new(service(forecast_child).gif_data)
     end
   end
 
@@ -19,6 +19,12 @@ class GifWriter
 
   def find_gif(forecast_child)
     Gif.find_by(summary: forecast_child.summary, city: @forecast.city)
+  end
+
+  private
+
+  def service(forecast_child)
+    GiphyService.new(forecast_child: forecast_child, city: @forecast.city)
   end
 
 

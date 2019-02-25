@@ -15,18 +15,22 @@ class GiphyService
   private
 
   def get_gif_url
-    JSON.parse(fetch_gif_data.body, symbolize_names: true)[:data][0][:embed_url]
+    parse_gif_data[:data][0][:embed_url]
+  end
+
+  def parse_gif_data
+    JSON.parse(fetch_gif_data.body, symbolize_names: true)
   end
 
   def fetch_gif_data
-    @_data ||= connection.get("v1/stickers/search")
+    @_data ||= connection.get("v1/gifs/search")
   end
 
   def connection
     Faraday.new(url: 'https://api.giphy.com') do |f|
       f.adapter Faraday.default_adapter
       f.params[:api_key] = ENV['GIPHY_API_KEY']
-      f.params[:q] = @forecast_child.summary
+      f.params[:q] = @forecast_child.icon
       f.params[:limit] = 1
       f.params[:offset] = 0
       f.params[:rating] = 'G'
