@@ -4,3 +4,11 @@
 require_relative 'config/application'
 
 Rails.application.load_tasks
+
+task refresh_forecasts: :environment do
+  forecast_writer = ForecastWriter.new
+  time_taken = Benchmark.measure do
+    forecast_writer.refresh_all
+  end
+  "Refreshed all #{Forecast.count} forecasts with benchmark: \n #{time_taken}"
+end
