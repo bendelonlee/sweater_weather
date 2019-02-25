@@ -32,7 +32,7 @@ class Forecast < ApplicationRecord
 
   def today_index
     days.find_index do |day|
-      day.time == Time.now.utc.beginning_of_day + 7.hours
+      day.time == Date.today
     end
   end
 
@@ -54,7 +54,7 @@ class Forecast < ApplicationRecord
     @_hours = (0..48).map do |i|
       Forecast::Hour.new(service.weather_at_hour(i))
     end
-    self.hours_data = @_hours.as_json rescue binding.pry
+    self.hours_data = @_hours.as_json
   end
 
   def add_days(service)

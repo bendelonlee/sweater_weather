@@ -28,7 +28,8 @@ gem 'figaro'
 gem 'faraday'
 gem 'factory_bot_rails'
 gem 'active_model_serializers'
-
+gem 'bcrypt'
+gem 'jwt'
 
 
 group :development, :test do

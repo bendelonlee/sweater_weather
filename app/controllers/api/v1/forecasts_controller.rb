@@ -6,18 +6,18 @@ class Api::V1::ForecastsController < ApplicationController
   private
 
   def forecast
-    forecast_writer.find_or_fetch(city)
+    forecast_retriever.find_or_fetch(city)
   end
 
   def city
-    city_writer.find_or_fetch(params[:location])
+    city_retriever.find_or_fetch(params[:location])
   end
 
-  def city_writer
-    CityWriter.new
+  def city_retriever
+    CityRetriever.new
   end
 
-  def forecast_writer
-    ForecastWriter.new
+  def forecast_retriever
+    ForecastRetriever.new
   end
 end

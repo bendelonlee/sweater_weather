@@ -1,4 +1,4 @@
-class BackgroundWriter
+class BackgroundRetriever
   def find_or_fetch(args)
     set_and_save_keywords(args[:keywords])
     return found_background if found_background
