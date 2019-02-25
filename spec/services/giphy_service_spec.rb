@@ -3,7 +3,7 @@ require "rails_helper"
 describe GiphyService do
   it ".get_gif" do
     VCR.use_cassette('GiphyService') do
-      day = Forecast::Day.new(summary: "Cloudy", time: Date.today)
+      day = Forecast::Day.new(summary: "Cloudy", time: Date.today, icon: "cloud-day")
       city = create(:city, name: "Denver")
       service = GiphyService.new(forecast_child: day, city: city)
       response = service.gif_data
