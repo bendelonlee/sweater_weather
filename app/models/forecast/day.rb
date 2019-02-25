@@ -7,15 +7,16 @@ class Forecast::Day
   def initialize(args)
       @icon               = args[:icon]
       @summary            = args[:summary]
-      @time               = format_time(args[:time]) rescue binding.pry
-      @high               = args[:temperatureHigh]
-      @low                = args[:temperatureLow]
-      @precip_probability = args[:precipProbability]
-      @precip_type        = args[:precipType]
+      @time               = format_time(args[:time])
+      @high               = args[:temperatureHigh] || args[:high]
+      @low                = args[:temperatureLow] || args[:low]
+      @precip_probability = args[:precipProbability] || args[:precip_probability]
+      @precip_type        = args[:precipType] || args[:precip_type]
+
   end
 
   def format_time(data)
-    DateTime.strptime(data.to_s, '%s') if data.is_a?(Integer)
+    data.is_a?(Integer) ? Date.strptime(data.to_s, '%s') : data.to_date
   end
 
   def read_attribute_for_serialization(attr)
