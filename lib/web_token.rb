@@ -5,7 +5,7 @@ class WebToken
 
   def self.payload(id)
     {
-      exp: (Time.now.beginning_of_hour + 10.years).to_i,
+      exp: (Time.now + 10.years).to_i,
       id: id
     }
   end
