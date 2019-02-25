@@ -4,12 +4,16 @@ class GiphyService
     @forecast_child = args[:forecast_child]
   end
 
-  def gif_data
+  def one_gif_data
     {
       summary: @forecast_child.summary,
       time: @forecast_child.time,
       gif_url: get_gif_url,
     }
+  end
+
+  def all_gif_data
+    parse_gif_data[:data]
   end
 
   private
@@ -31,7 +35,6 @@ class GiphyService
       f.adapter Faraday.default_adapter
       f.params[:api_key] = ENV['GIPHY_API_KEY']
       f.params[:q] = @forecast_child.icon
-      f.params[:limit] = 1
       f.params[:offset] = 0
       f.params[:rating] = 'G'
       f.params[:lang] = 'en'

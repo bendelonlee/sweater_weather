@@ -18,5 +18,7 @@ describe 'gif endpoint' do
     expect(days.first).to have_key(:summary)
     expect(days.first).to have_key(:gif_url)
     expect(days.first.keys.count).to eq(3)
+    urls = days.map{ |day| day[:gif_url]}
+    expect(urls.uniq.size).to eq(urls.size)
   end
 end
