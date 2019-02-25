@@ -10,5 +10,6 @@ task refresh_forecasts: :environment do
   time_taken = Benchmark.measure do
     forecast_writer.refresh_all
   end
-  "Refreshed all #{Forecast.count} forecasts with benchmark: \n #{time_taken}"
+
+  puts "Refreshed all #{Forecast.count} forecasts in \n #{time_taken.real} seconds"
 end

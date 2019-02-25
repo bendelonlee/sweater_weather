@@ -9,6 +9,7 @@ class ForecastWriter
   end
 
   def refresh_all
+    Forecast.destroy_all
     City.all.each do |city|
       Forecast.from_service( service(city), city )
     end
