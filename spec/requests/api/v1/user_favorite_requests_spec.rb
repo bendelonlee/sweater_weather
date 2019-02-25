@@ -15,10 +15,20 @@ describe 'User adds a favorite' do
   end
   describe 'unsuccessfully' do
     scenario 'no key' do
+      city_1 = create(:city)
 
+      params = { city_id: city_1.id }
+      post "/api/v1/favorites", params: params
+
+      expect(response.code).to eq('401')
     end
     scenario 'incorrect key' do
+      city_1 = create(:city)
 
+      params = { city_id: city_1.id, api_key: 'foobar' }
+      post "/api/v1/favorites", params: params
+
+      expect(response.code).to eq('401')
     end
   end
 
