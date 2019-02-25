@@ -1,8 +1,9 @@
 class Api::V1::UsersController < ApplicationController
   def create
     user = User.create(user_params)
+    api_key = WebToken.encode(user.id)
     render json: {
-      api_key: Digest::SHA1.hexdigest([user.id, Time.now, Rails.application.secrets.secret_key_base].join(':'))
+      api_key: api_key
     }
   end
 
