@@ -1,4 +1,11 @@
 class ForecastRetriever
+
+  def find_or_fetch_many(cities)
+    cities.each do |city|
+      find_or_fetch(city)
+    end
+  end
+
   def find_or_fetch(city)
     @city = city
     if found_forecast

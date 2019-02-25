@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       get "gifs", to: "gifs#show"
       resources :users, only: [:create]
       resources :sessions, only: [:create]
-      resources :favorites, only: [:create]
+      resources :favorites, only: [:create, :index]
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

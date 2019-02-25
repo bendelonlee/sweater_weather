@@ -4,6 +4,17 @@ class Api::V1::FavoritesController < ApplicationController
     render json: { success: "City #{city.id} added to your favorites"}
   end
 
+  def index
+    retriever.find_or_fetch_many(user_cities)
+    render json: user_cities, each_serializer: Forecast::CurrentSerializer
+  end
+
+  private
+
+  def user_cities
+    @_user_cities ||= user.favorite_cities.includes(:forecast)
+  end
+
   def favorite_params
     params.permit(:city_id, :api_key)
   end
@@ -14,5 +25,9 @@ class Api::V1::FavoritesController < ApplicationController
 
   def city
     @_city ||= City.find(favorite_params[:city_id])
+  end
+
+  def retriever
+    ForecastRetriever.new
   end
 end

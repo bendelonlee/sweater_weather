@@ -30,6 +30,10 @@ class Forecast < ApplicationRecord
     add_hours(service)
   end
 
+  def current_hour
+    hours[current_hour_index]
+  end
+
   def today_index
     days.find_index do |day|
       day.time == Date.today
