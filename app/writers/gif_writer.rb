@@ -1,6 +1,10 @@
 class GifWriter
-  def self.find_or_fetch(forecast_child)
-    Gif.new(GiphyService.get_gif(forecast_child))
+  def find_or_fetch(forecast_child)
+    if found_gif = find_gif(forecast_child)
+      found_gif
+    else
+      Gif.new(GiphyService.get_gif(forecast_child))
+    end
   end
 
   def initialize(forecast)
@@ -9,8 +13,12 @@ class GifWriter
 
   def days
     @forecast.days.map do |day|
-      self.class.find_or_fetch(day)
+      find_or_fetch(day)
     end
+  end
+
+  def find_gif(forecast_child)
+    Gif.find_by(summary: forecast_child.summary, city: @forecast.city)
   end
 
 
