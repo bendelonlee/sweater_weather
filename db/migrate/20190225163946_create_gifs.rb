@@ -1,6 +1,7 @@
 class CreateGifs < ActiveRecord::Migration[5.1]
   def change
     create_table :gifs do |t|
+      t.string :icon
       t.string :summary
       t.string :time
       t.string :gif_url

@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20190225163946) do
   end
 
   create_table "gifs", force: :cascade do |t|
+    t.string "icon"
     t.string "summary"
     t.string "time"
     t.string "gif_url"
