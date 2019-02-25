@@ -1,4 +1,4 @@
-class ForecastWriter
+class ForecastRetriever
   def find_or_fetch(city)
     @city = city
     if found_forecast

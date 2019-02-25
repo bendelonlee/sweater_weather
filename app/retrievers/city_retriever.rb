@@ -1,4 +1,4 @@
-class CityWriter
+class CityRetriever
   def find_or_fetch(city_name)
     @city_name = city_name
     return found_city if found_city

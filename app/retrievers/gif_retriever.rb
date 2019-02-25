@@ -1,4 +1,4 @@
-class GifWriter
+class GifRetriever
   def find_or_fetch(forecast_child)
     if found_gif = find_gif(forecast_child)
       found_gif
