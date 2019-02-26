@@ -1,9 +1,9 @@
 class CityRetriever
   def find_or_fetch(city_name)
-    @city_name = city_name
+    @city_name = city_name.strip.capitalize
     return found_city if found_city
     City.create(
-      { name: @city_name,
+      { name: found_name,
         latitude: coordinates[:lat],
         longitude: coordinates[:lng],
         country: country,
@@ -31,6 +31,10 @@ class CityRetriever
   end
 
   def state
-    service.country
+    service.state
+  end
+
+  def found_name
+    service.city
   end
 end
