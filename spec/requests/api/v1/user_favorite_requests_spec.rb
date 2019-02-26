@@ -9,7 +9,7 @@ describe 'User adds a favorite' do
     api_key = WebToken.encode(user.id)
     params = { city_id: city_1.id, api_key: api_key }
     post "/api/v1/favorites", params: params
-    expect(response.status).to eq('201')
+    expect(response.status).to eq(201)
     expect(JSON.parse(response.body)["success"]).to eq("City #{city_1.id} added to your favorites")
     expect(user.reload.favorite_cities).to eq([city_1])
   end
@@ -92,6 +92,41 @@ describe 'User favorite index' do
 
     expect(response.code).to eq('401')
   end
+end
 
+describe 'Favorite deletion endpoint' do
+  scenario 'successully' do
+    city_1 = create(:city, name: "Denvertropolis")
+    stub_service
+    stub_days
+    stub_hours
+    ForecastRetriever.new.find_or_fetch(city_1)
+    user = create(:user)
+    user.favorite_cities << city_1
+    api_key = WebToken.encode(user.id)
+    params = { city_id: city_1.id, api_key: api_key }
+    delete "/api/v1/favorites", params: params
+    expect(response.status).to eq(200)
+    parsed_response = JSON.parse(response.body)
+    expect(parsed_response["id"]).to eq(city_1.id)
+    expect(parsed_response["name"]).to eq(city_1.name)
+    expect(user.reload.favorite_cities).to eq([])
+  end
+  scenario 'with a missing key' do
+    city_1 = create(:city)
 
+    params = { city_id: city_1.id }
+    delete "/api/v1/favorites", params: params
+
+    expect(response.code).to eq('401')
+  end
+
+  scenario 'with an incorrect key' do
+    city_1 = create(:city)
+
+    params = { city_id: city_1.id, api_key: 'foobar' }
+    delete "/api/v1/favorites", params: params
+
+    expect(response.code).to eq('401')
+  end
 end

@@ -3,12 +3,17 @@ class Api::V1::FavoritesController < ApplicationController
 
   def create
     user.favorite_cities << city
-    render json: { success: "City #{city.id} added to your favorites"}, status: 201
+    render json: { success: "City #{city.id} added to your favorites"}, status: :created
   end
 
   def index
     retriever.find_or_fetch_many(user_cities)
     render json: user_cities, each_serializer: Forecast::CurrentSerializer
+  end
+
+  def destroy
+    user.favorites.find_by(city: city).destroy
+    render json: city, serializer: Forecast::CurrentSerializer
   end
 
   private
@@ -44,4 +49,5 @@ class Api::V1::FavoritesController < ApplicationController
   def retriever
     ForecastRetriever.new
   end
+
 end
