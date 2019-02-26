@@ -1,4 +1,5 @@
 class BackgroundRetriever
+  KEYWORDS = ', city, sky, panoramic'
   def find_or_fetch(args)
     set_and_save_keywords(args[:keywords])
     return found_background if found_background
@@ -16,7 +17,7 @@ class BackgroundRetriever
   end
 
   def keyword_list
-    @keywords.pluck(:word).join(", ")
+    @keywords.pluck(:word).join(", ") + KEYWORDS
   end
 
   def set_and_save_keywords(keywords)
