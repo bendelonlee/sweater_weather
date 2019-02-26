@@ -9,7 +9,7 @@ describe 'User adds a favorite' do
     api_key = WebToken.encode(user.id)
     params = { city_id: city_1.id, api_key: api_key }
     post "/api/v1/favorites", params: params
-    expect(response).to be_successful
+    expect(response.status).to eq('201')
     expect(JSON.parse(response.body)["success"]).to eq("City #{city_1.id} added to your favorites")
     expect(user.reload.favorite_cities).to eq([city_1])
   end
@@ -73,6 +73,24 @@ describe 'User favorite index' do
       expect(chicago["state"]).to eq(city_2.state)
       expect(chicago["country"]).to eq(city_2.country)
     end
+  end
+
+  it 'with a missing key' do
+    city_1 = create(:city)
+
+    params = { city_id: city_1.id }
+    get "/api/v1/favorites", params: params
+
+    expect(response.code).to eq('401')
+  end
+
+  scenario 'with an incorrect key' do
+    city_1 = create(:city)
+
+    params = { city_id: city_1.id, api_key: 'foobar' }
+    get "/api/v1/favorites", params: params
+
+    expect(response.code).to eq('401')
   end
 
 

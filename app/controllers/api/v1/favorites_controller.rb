@@ -3,7 +3,7 @@ class Api::V1::FavoritesController < ApplicationController
 
   def create
     user.favorite_cities << city
-    render json: { success: "City #{city.id} added to your favorites"}
+    render json: { success: "City #{city.id} added to your favorites"}, status: 201
   end
 
   def index
