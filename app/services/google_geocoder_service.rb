@@ -16,7 +16,7 @@ class GoogleGeocoderService
   end
 
   def country
-    response[:results][0][:address_components][3][:long_name]
+    response[:results][0][:address_components][-1][:long_name]
   end
 
   private
