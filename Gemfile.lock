@@ -131,6 +131,9 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    redis (4.1.0)
+    redis-namespace (1.6.0)
+      redis (>= 3.0.4)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.2)
@@ -200,6 +203,8 @@ DEPENDENCIES
   pry
   puma (~> 3.7)
   rails (~> 5.1.6, >= 5.1.6.1)
+  redis
+  redis-namespace
   rspec-rails
   shoulda-matchers (~> 3.1)
   simplecov
