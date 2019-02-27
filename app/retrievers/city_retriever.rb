@@ -16,7 +16,6 @@ class CityRetriever
         state: state
       }
     )
-    require 'pry'; binding.pry
     City::Name[@city_name] = city.id
     city
   end
@@ -27,7 +26,6 @@ class CityRetriever
   end
 
   def previously_searched_city
-    require 'pry'; binding.pry
     if id = id_from_name
       City.find(id)
     end
