@@ -1,16 +1,31 @@
 class WebToken
-  def self.encode(id)
-    JWT.encode(payload(id), Rails.application.secrets.secret_key_base)
-  end
+  class << self
 
-  def self.payload(id)
-    {
-      exp: (Time.now + 10.years).to_i,
-      id: id
-    }
-  end
+    def encode(id)
+      JWT.encode(payload(id), Rails.application.secrets.secret_key_base)
+    end
 
-  def self.decode(sha)
-    JWT.decode(sha, Rails.application.secrets.secret_key_base)[0]['id']
+    def payload(id)
+      {
+        exp: (Time.now.round(0) + 1.hours).to_i,
+        id: id
+      }
+    end
+
+    def decode(sha)
+      payload = decoded_playoad(sha)
+      id = payload['id']
+      if Time.strptime(payload['exp'].to_s, '%s') < Time.now
+        :expired
+      else
+        id
+      end
+    end
+
+    private
+
+    def decoded_playoad(sha)
+      JWT.decode(sha, Rails.application.secrets.secret_key_base)[0]
+    end
   end
 end
