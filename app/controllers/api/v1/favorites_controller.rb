@@ -3,7 +3,7 @@ class Api::V1::FavoritesController < ApplicationController
 
   def create
     user.favorite_cities << city
-    render json: { success: "City #{city.id} added to your favorites"}, status: :created
+    render json: { success: "City #{city.name} added to your favorites"}, status: :created
   end
 
   def index
@@ -22,7 +22,7 @@ class Api::V1::FavoritesController < ApplicationController
     begin
       user
     rescue
-      render json: {'Warning': 'Unauthorized'}, status: 401
+      render json: {'Warning': 'Unauthorized.'}, status: 401
     end
   end
 
