@@ -30,7 +30,9 @@ describe CityRetriever do
     end
     describe "finds" do
       before(:each) do
-        create(:city, name: @city_name, latitude: @latitude, longitude: @longitude)
+        REDIS.redis.flushdb
+        city = create(:city, name: @city_name, latitude: @latitude, longitude: @longitude)
+        City::Name[@city_name] = city.id
       end
       scenario "when the name is already taken" do
         @city_to_find = @city_name
