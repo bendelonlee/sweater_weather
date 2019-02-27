@@ -1,9 +1,9 @@
 class ForecastSerializer < ActiveModel::Serializer
+  belongs_to :city
   attributes :id,
              :day_summary, :week_summary,
              :current_hour, :current_day,
              :hours, :days
-  belongs_to :city
 
   def current_day
     object.days[object.today_index]
