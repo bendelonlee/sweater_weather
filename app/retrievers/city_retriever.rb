@@ -15,7 +15,11 @@ class CityRetriever
   private
 
   def found_city
-    @_city ||= City.find_by(name: @city_name)
+    @_city ||= find_city
+  end
+
+  def find_city
+    City.find_by(latitude: coordinates[:lat], longitude: coordinates[:lng])
   end
 
   def service

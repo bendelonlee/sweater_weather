@@ -3,9 +3,7 @@ require "rails_helper"
 describe 'forecast endpoint' do
   it "returns info for the location/city, and current and future days and hours" do
     VCR.use_cassette('denver_weather') do
-      VCR.use_cassette('denver_geocode') do
-        get "/api/v1/forecast?location=Denver"
-      end
+      get "/api/v1/forecast?location=Denver"
     end
 
     expect(response).to be_successful
@@ -70,5 +68,14 @@ describe 'forecast endpoint' do
     expect(days.first).to have_key :precip_probability
     expect(days.first).to have_key :precip_type
     expect(days.first.keys.count).to eq(6)
+  end
+  it 'if I search for denver, then I search denver,CO or denver,Colorado it finds the same city each time' do
+    VCR.use_cassette('denver_name_agnostic') do
+      get "/api/v1/forecast?location=Denver"
+      get "/api/v1/forecast?location=denver"
+      get "/api/v1/forecast?location=denver,CO"
+      get "/api/v1/forecast?location=denver,Colorado"
+    end
+    expect(City.count).to eq(1)
   end
 end

@@ -44,8 +44,6 @@ describe CityRetriever do
         expect(found_city).to be_a(City)
         expect(found_city.name).to eq(@city_to_find)
       end
-      #refactor. Given "Paris" when "Paris Texas" and "Paris France" are in the database, it should find the more popular (france). But, given "Paris, Texas", it should find the right one
-      #Another refactor: It should store which searches led to which cities. EG, 123 maple street is in the Metropolis, the next time that address is looked for it should default Metropolis
     end
   end
 end
