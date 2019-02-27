@@ -1,7 +1,7 @@
 require "rails_helper"
 describe 'optimization' do
   before(:each) do
-    REDIS.redis.flushdb
+    $redis.redis.flushdb
   end
   it 'if I search for denver, then I search denver,CO or denver,Colorado it finds the same city each time' do
     VCR.use_cassette('denver_name_agnostic') do

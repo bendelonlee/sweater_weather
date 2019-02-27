@@ -12,7 +12,7 @@ class City::Name
     private
 
     def redis
-      REDIS
+      $redis
     end
   end
 end
