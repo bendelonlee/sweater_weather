@@ -5,7 +5,8 @@ class BackgroundRetriever
     return found_background if found_background
     Background::Image.create(
       {
-        source: fetch_source
+        source: fetch_source,
+        keywords: @keywords
       }
     )
   end
@@ -27,8 +28,7 @@ class BackgroundRetriever
   end
 
   def found_background
-    Background::Image.joins(:keywords)
-                     .find_by(background_keywords: {word: @keywords})
+    Background::Image.joins(:keywords).find_by(background_keywords: {id: @keywords})
   end
 
   def formatted_keywords
