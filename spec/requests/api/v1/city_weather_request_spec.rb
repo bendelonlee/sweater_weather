@@ -19,7 +19,7 @@ describe 'forecast endpoint' do
     expect(result).to have_key(:current_day)
     expect(result).to have_key(:hours)
     expect(result).to have_key(:days)
-    expect(result.keys.count).to eq(8)
+    expect(result.keys.count).to eq(9)
 
     city = result[:city]
     current_hour = result[:current_hour]
@@ -42,7 +42,7 @@ describe 'forecast endpoint' do
     expect(current_hour).to have_key :humidity
     expect(current_hour).to have_key :visibility
     expect(current_hour).to have_key :uv_index
-    expect(current_hour.keys.count).to eq(8)
+    expect(current_hour.keys.count).to eq(9)
 
     expect(current_day).to have_key :icon
     expect(current_day).to have_key :summary

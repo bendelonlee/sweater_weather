@@ -65,7 +65,7 @@ describe 'User favorite index' do
       expect(denver_weather).to have_key 'humidity'
       expect(denver_weather).to have_key 'visibility'
       expect(denver_weather).to have_key 'uv_index'
-      expect(denver_weather.keys.count).to eq(8)
+      expect(denver_weather.keys.count).to eq(9)
 
 
       expect(chicago["id"]).to eq(city_2.id)

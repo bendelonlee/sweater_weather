@@ -15,7 +15,7 @@ class Forecast < ApplicationRecord
 
   def hours
     @_hours ||= hours_data.map do |hour|
-      Forecast::Hour.new(hour.symbolize_keys)
+      Forecast::Hour.new(hour.symbolize_keys, city.timezone_offset)
     end
   end
 
@@ -56,7 +56,7 @@ class Forecast < ApplicationRecord
 
   def add_hours(service)
     @_hours = (0..48).map do |i|
-      Forecast::Hour.new(service.weather_at_hour(i))
+      Forecast::Hour.new(service.weather_at_hour(i), city.timezone_offset)
     end
     self.hours_data = @_hours.as_json
   end

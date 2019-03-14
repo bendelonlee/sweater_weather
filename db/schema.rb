@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20190313235255) do
     t.datetime "updated_at", null: false
     t.string "state"
     t.string "country"
-    t.integer "timezone_offset"
+    t.integer "timezone_offset", default: 0
   end
 
   create_table "favorites", force: :cascade do |t|

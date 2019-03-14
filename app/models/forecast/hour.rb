@@ -3,9 +3,11 @@ class Forecast::Hour
               :icon, :summary,
               :temperature, :feels_like,
               :humidity, :visibility, :uv_index,
-              :precip_probability, :precip_type
+              :precip_probability, :precip_type,
+              :timezone_offset
 
-  def initialize(args)
+  def initialize(args, timezone_offset)
+    @timezone_offset = timezone_offset
     @icon          = args[:icon]
     @summary       = args[:summary]
     @time          = format_time(args[:time])
