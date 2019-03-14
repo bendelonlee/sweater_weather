@@ -3,8 +3,8 @@ require "rails_helper"
 describe CityRetriever do
   describe ".find_or_fetch" do
     before(:each) do
-      @latitude  = 123.22
-      @longitude = -111.45
+      @latitude  = 39.7392
+      @longitude = -104.9903
       @city_name = "Denvertropolis"
       @service_class = spy("GoogleGeocoderService")
       @service       = spy("geo_service")
@@ -12,21 +12,24 @@ describe CityRetriever do
       allow(@service_class).to receive(:new).and_return( @service )
       allow(@service).to receive_messages(
         coordinates:
-          { lat: @latitude, lng: @longitude },
+        { lat: @latitude, lng: @longitude },
         city: "Denvertropolis",
         state: "CO",
         country: "United States"
       )
     end
     it "creates" do
-      create(:city)
-      retriever = CityRetriever.new
-      retriever.find_or_fetch(@city_name)
-      # expect(City.count).to eq(2)
-      expect(City.last.latitude).to eq(@latitude)
-      expect(City.last.longitude).to eq(@longitude)
-      expect(@service_class).to have_received(:new)
-      expect(@service).to have_received(:coordinates)
+      VCR.use_cassette("timezone") do
+        create(:city)
+        retriever = CityRetriever.new
+        retriever.find_or_fetch(@city_name)
+        # expect(City.count).to eq(2)
+        expect(City.last.latitude).to eq(@latitude)
+        expect(City.last.longitude).to eq(@longitude)
+        expect(City.last.timezone_offset).to eq(-21600)
+        expect(@service_class).to have_received(:new)
+        expect(@service).to have_received(:coordinates)
+      end
     end
     describe "finds" do
       before(:each) do
