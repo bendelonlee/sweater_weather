@@ -3,7 +3,12 @@ class ForecastSerializer < ActiveModel::Serializer
   attributes :id,
              :day_summary, :week_summary,
              :current_hour, :current_day,
-             :hours, :days
+             :hours, :days,
+             :current_time
+
+  def current_time
+    (Time.now.utc + object.city.timezone_offset.seconds).strftime('%l:%M %p')
+  end
 
   def current_day
     object.days[object.today_index]
