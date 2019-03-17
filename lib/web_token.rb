@@ -7,7 +7,7 @@ class WebToken
 
     def payload(id)
       {
-        exp: (Time.now.round(0) + 1.hours).to_i,
+        exp: (Time.now.round(0) + 1.days).to_i,
         id: id
       }
     end
