@@ -57,7 +57,7 @@ describe 'forecast endpoint' do
     expect(hours.count).to be_between(8, 25)
     expect(hours.first).to have_key :temperature
     expect(hours.first).to have_key :time_of_day
-    expect(hours.first.keys.count).to eq(2)
+    expect(hours.first.keys.count).to eq(3)
 
     expect(days).to be_a(Array)
     expect(days.count).to be_between(7, 8)

@@ -38,6 +38,5 @@ describe DarkSkyService do
     expect(response).to have_key(:temperatureHigh)
     expect(response).to have_key(:temperatureLow)
     expect(response).to have_key(:precipProbability)
-    expect(response).to have_key(:precipType)
   end
 end
