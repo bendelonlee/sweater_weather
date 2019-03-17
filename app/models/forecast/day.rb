@@ -8,8 +8,8 @@ class Forecast::Day
       @icon               = args[:icon]
       @summary            = args[:summary]
       @time               = format_time(args[:time])
-      @high               = args[:temperatureHigh] || args[:high]
-      @low                = args[:temperatureLow] || args[:low]
+      @high               = args[:temperatureHigh].round.to_i || args[:high].round.to_i
+      @low                = args[:temperatureLow].round.to_i || args[:low].round.to_i
       @precip_probability = args[:precipProbability] || args[:precip_probability]
       @precip_type        = args[:precipType] || args[:precip_type]
 
