@@ -11,7 +11,7 @@ class Forecast::Hour
     @icon          = args[:icon]
     @summary       = args[:summary]
     @time          = format_time(args[:time])
-    @temperature   = args[:temperature].round.to_i
+    @temperature   = args[:temperature].round.to_i if args[:temperature]
     @feels_like    = args[:apparentTemperature] || args[:feels_like]
     @humidity      = args[:humidity]
     @visibility    = args[:visibility]

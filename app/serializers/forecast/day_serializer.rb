@@ -6,6 +6,6 @@ class Forecast::DaySerializer < ActiveModel::Serializer
   end
 
   def precip_probability
-    object.precip_probability.to_s[/(?<=\.)\d+/] + '%'
+    "#{object.precip_probability.to_s[/(?<=\.)\d+/]}%"
   end
 end
