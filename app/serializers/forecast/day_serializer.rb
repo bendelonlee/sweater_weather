@@ -6,11 +6,6 @@ class Forecast::DaySerializer < ActiveModel::Serializer
   end
 
   def precip_probability
-    return '0' if object.precip_probability == 0
-    prob_string = object.precip_probability.to_s[/(?<=\.)\d+/]
-    if prob_string && prob_string.first == '0'
-      prob_string[0] = ''
-    end
-    "#{prob_string}%"
+    return (object.precip_probability * 100).to_i.to_s + "%"
   end
 end
