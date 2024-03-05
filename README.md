@@ -10,6 +10,7 @@ Google Geocoder is hit once per city search ("denver" and "denver, co" are two s
 
 Google Timezones is hit as well.
 
+
 ## Production URL
 
 http://sweater-weather-1.surge.sh/
@@ -235,12 +236,6 @@ Example Response:
     }
 }
 ```
-
-
-
-
-
-
 
 ## Tech Stack
 
